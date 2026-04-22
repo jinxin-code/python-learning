@@ -1,8 +1,10 @@
-# 用户管理系统
+# 用户管理系统 / User Management System
 
 这是一个基于Flask的用户管理系统，用于管理从JSONPlaceholder API获取的用户数据。
 
-## 功能特性
+This is a Flask-based user management system for managing user data fetched from the JSONPlaceholder API.
+
+## 功能特性 / Features
 
 - **用户卡片展示**：以卡片形式展示所有用户信息
 - **用户详情查看**：查看用户的详细信息
@@ -12,25 +14,38 @@
 - **用户新增**：添加新用户
 - **用户删除**：删除用户
 
-## 项目结构
+- **User Card Display**: Display all user information in card format
+- **User Detail View**: View detailed user information
+- **User Search**: Search users by username or name
+- **User Filtering**: Filter users by username or email prefix
+- **User Editing**: Modify user's name, username, and email
+- **User Addition**: Add new users
+- **User Deletion**: Delete users
+
+## 项目结构 / Project Structure
 
 ```
-nodejs-learning/
+python-learning/
 ├── app/
-│   ├── __init__.py      # 应用初始化
-│   ├── routes.py        # 路由和业务逻辑
-│   ├── static/          # 静态文件目录
-│   └── templates/       # HTML模板目录
-├── tests/               # 测试目录
-├── config.py            # 配置文件
-├── requirements.txt     # 依赖文件
-├── run.py               # 应用入口点
-└── README.md            # 项目说明
+│   ├── __init__.py      # 应用初始化 / Application initialization
+│   ├── routes.py        # 路由和业务逻辑 / Routes and business logic
+│   ├── static/          # 静态文件目录 / Static files directory
+│   └── templates/       # HTML模板目录 / HTML templates directory
+├── tests/               # 测试目录 / Test directory
+├── config.py            # 配置文件 / Configuration file
+├── requirements.txt     # 依赖文件 / Dependency file
+├── run.py               # 应用入口点 / Application entry point
+└── README.md            # 项目说明 / Project description
 ```
 
-## 安装和运行
+## 安装和运行 / Installation and Running
 
 1. **创建虚拟环境**：
+   ```bash
+   python3 -m venv venv
+   ```
+
+   **Create virtual environment**:
    ```bash
    python3 -m venv venv
    ```
@@ -40,7 +55,17 @@ nodejs-learning/
    source venv/bin/activate
    ```
 
+   **Activate virtual environment**:
+   ```bash
+   source venv/bin/activate
+   ```
+
 3. **安装依赖**：
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
@@ -50,16 +75,27 @@ nodejs-learning/
    python run.py
    ```
 
+   **Run application**:
+   ```bash
+   python run.py
+   ```
+
 5. **访问应用**：
    打开浏览器访问 http://127.0.0.1:5000
 
-## 技术栈
+   **Access application**:
+   Open browser and visit http://127.0.0.1:5000
+
+## 技术栈 / Technology Stack
 
 - Python 3.14
 - Flask 3.1.3
 - Requests 2.31.0
 
-## 注意事项
+## 注意事项 / Notes
 
 - 本应用使用JSONPlaceholder API进行数据操作，所有操作都是模拟的，不会实际修改服务器数据
 - 应用运行在开发模式下，不建议在生产环境中使用
+
+- This application uses the JSONPlaceholder API for data operations. All operations are simulated and will not actually modify server data.
+- The application runs in development mode and is not recommended for use in production environments.
