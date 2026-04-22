@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .user-detail {
+            margin-bottom: 30px;
+        }
+        
+        .detail-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .detail-item strong {
+            display: inline-block;
+            width: 120px;
+            color: #333;
+        }
+        
+        .detail-item span {
+            color: #666;
+        }
+        
+        .address {
+            margin-left: 120px;
+            margin-top: 10px;
+        }
+        
+        .address-item {
+            margin-bottom: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>用户详情</h1>
+        
+        <div class="user-detail">
+            <div class="detail-item">
+                <strong>ID:</strong> <span>{{ user.id }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>姓名:</strong> <span>{{ user.name }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>用户名:</strong> <span>{{ user.username }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>邮箱:</strong> <span>{{ user.email }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>电话:</strong> <span>{{ user.phone }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>网站:</strong> <span>{{ user.website }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>公司:</strong> <span>{{ user.company.name }}</span>
+            </div>
+            <div class="detail-item">
+                <strong>地址:</strong>
+                <div class="address">
+                    <div class="address-item">街道: {{ user.address.street }}</div>
+                    <div class="address-item"> suite: {{ user.address.suite }}</div>
+                    <div class="address-item">城市: {{ user.address.city }}</div>
+                    <div class="address-item">邮编: {{ user.address.zipcode }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="btn">返回列表</a>
+    </div>
+</body>
+</html>

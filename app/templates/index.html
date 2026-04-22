@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .search-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-container select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .add-user-btn {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .add-user-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .user-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .user-card p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .card-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0b7dda;
+        }
+        
+        .btn-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e68a00;
+        }
+        
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #da190b;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container,
+            .filter-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>用户管理系统</h1>
+        
+        <div class="header">
+            <div class="search-container">
+                <form action="/" method="get">
+                    <input type="text" name="search" placeholder="搜索用户名或姓名" value="{{ search_term }}">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+            
+            <div class="filter-container">
+                <form action="/" method="get">
+                    <input type="hidden" name="search" value="{{ search_term }}">
+                    <select name="filter" onchange="this.form.submit()">
+                        <option value="all" {% if filter_by == 'all' %}selected{% endif %}>全部</option>
+                        <option value="username" {% if filter_by == 'username' %}selected{% endif %}>按用户名</option>
+                        <option value="email" {% if filter_by == 'email' %}selected{% endif %}>按邮箱前缀</option>
+                    </select>
+                </form>
+            </div>
+            
+            <a href="{{ url_for('add_user') }}" class="add-user-btn">新增用户</a>
+        </div>
+        
+        <div class="users-grid">
+            {% for user in users %}
+            <div class="user-card">
+                <h3>{{ user.name }}</h3>
+                <p><strong>用户名:</strong> {{ user.username }}</p>
+                <p><strong>邮箱:</strong> {{ user.email }}</p>
+                <div class="card-actions">
+                    <a href="{{ url_for('user_detail', user_id=user.id) }}" class="btn btn-primary">查看详情</a>
+                    <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-warning">编辑</a>
+                    <form action="{{ url_for('delete_user_route', user_id=user.id) }}" method="post" onsubmit="return confirm('确定要删除这个用户吗？');">
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
