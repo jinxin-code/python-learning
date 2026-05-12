@@ -82,34 +82,124 @@ python manage.py runserver
 | 学习曲线 | 低 | 中 | 高 |
 | 适用场景 | 小型应用、API | 高性能 API | 大型 Web 应用 |
 
-## 项目结构
+---
+
+## English Version
+
+# Python Learning
+
+A repository containing three Python web framework learning projects for comparing Flask, FastAPI, and Django.
+
+## Project List
+
+### 1. python-flask-learning
+Flask Framework Learning Project
+
+**Features:**
+- Factory pattern application structure
+- Flask-Caching
+- Flask-WTF form validation
+- Jinja2 template engine
+
+**Quick Start:**
+```bash
+cd python-flask-learning
+pip install -r requirements.txt
+python run.py
+```
+
+**Access:** http://localhost:5000
+
+---
+
+### 2. python-fastapi-learning
+FastAPI Framework Learning Project
+
+**Features:**
+- Pydantic data validation
+- Auto-generated API documentation (Swagger/ReDoc)
+- Dependency injection
+- Async support
+
+**Quick Start:**
+```bash
+cd python-fastapi-learning
+pip install -r requirements.txt
+python main.py
+```
+
+**Access:**
+- API: http://localhost:8000
+- Swagger Docs: http://localhost:8000/docs
+- ReDoc Docs: http://localhost:8000/redoc
+
+---
+
+### 3. python-django-learning
+Django Framework Learning Project
+
+**Features:**
+- Django ORM database operations
+- CBV (Class-Based Views)
+- Django Admin backend
+- Form validation
+
+**Quick Start:**
+```bash
+cd python-django-learning
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+**Access:** http://localhost:8000
+**Admin:** http://localhost:8000/admin
+
+---
+
+## Technology Comparison
+
+| Feature | Flask | FastAPI | Django |
+|---------|-------|---------|--------|
+| Framework Type | Micro Framework | Modern API Framework | Full-Stack Framework |
+| Data Validation | Flask-WTF | Pydantic | Django Forms/ORM |
+| Template Engine | Jinja2 | Not Built-in | Django Templates |
+| Database | SQLAlchemy (required) | ORM (required) | Built-in ORM |
+| API Documentation | Requires extra config | Auto-generated | Requires DRF |
+| Learning Curve | Low | Medium | High |
+| Use Case | Small apps, APIs | High-performance APIs | Large web applications |
+
+---
+
+## Project Structure
 
 ```
 python-learning/
-├── python-flask-learning/     # Flask 学习项目
-│   ├── app/                   # 应用代码
-│   │   ├── models/            # 数据模型
-│   │   ├── services/          # 服务层
-│   │   └── templates/         # 模板文件
-│   ├── tests/                 # 测试文件
+├── python-flask-learning/     # Flask learning project
+│   ├── app/                   # Application code
+│   │   ├── models/            # Data models
+│   │   ├── services/          # Service layer
+│   │   └── templates/         # Template files
+│   ├── tests/                 # Test files
 │   └── ...
 │
-├── python-fastapi-learning/   # FastAPI 学习项目
-│   ├── app/                   # 应用代码
-│   │   ├── models/            # Pydantic 模型
-│   │   └── services/          # 服务层
-│   ├── tests/                 # 测试文件
+├── python-fastapi-learning/   # FastAPI learning project
+│   ├── app/                   # Application code
+│   │   ├── models/            # Pydantic models
+│   │   └── services/          # Service layer
+│   ├── tests/                 # Test files
 │   └── ...
 │
-├── python-django-learning/    # Django 学习项目
-│   ├── myproject/             # 项目配置
-│   ├── users/                 # 用户应用
-│   ├── templates/             # 模板文件
+├── python-django-learning/    # Django learning project
+│   ├── myproject/             # Project configuration
+│   ├── users/                 # User app
+│   ├── templates/             # Template files
 │   └── ...
 │
-└── README.md                  # 本文件
+└── README.md                  # This file
 ```
 
-## 许可证
+## License
 
 MIT License
