@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.name }} - 用户详情{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>用户详情</h2>
+                </div>
+                <div class="card-body">
+                    <!-- 基本信息 -->
+                    <div class="mb-4">
+                        <h3>{{ user.name }}</h3>
+                        <p class="text-muted">@{{ user.username }}</p>
+                    </div>
+
+                    <!-- 详细信息 -->
+                    <dl class="row">
+                        <dt class="col-sm-3">邮箱</dt>
+                        <dd class="col-sm-9">{{ user.email }}</dd>
+
+                        <dt class="col-sm-3">电话</dt>
+                        <dd class="col-sm-9">{{ user.phone|default:"未填写" }}</dd>
+
+                        <dt class="col-sm-3">网站</dt>
+                        <dd class="col-sm-9">
+                            {% if user.website %}
+                                <a href="https://{{ user.website }}" target="_blank">{{ user.website }}</a>
+                            {% else %}
+                                未填写
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-sm-3">地址</dt>
+                        <dd class="col-sm-9">{{ user.get_address_display|default:"未填写" }}</dd>
+
+                        <dt class="col-sm-3">公司</dt>
+                        <dd class="col-sm-9">{{ user.get_company_name|default:"未填写" }}</dd>
+
+                        <dt class="col-sm-3">创建时间</dt>
+                        <dd class="col-sm-9">{{ user.created_at|date:"Y-m-d H:i:s" }}</dd>
+
+                        <dt class="col-sm-3">更新时间</dt>
+                        <dd class="col-sm-9">{{ user.updated_at|date:"Y-m-d H:i:s" }}</dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'users:user_edit' user.pk %}" class="btn btn-warning">编辑</a>
+                    <a href="{% url 'users:user_delete' user.pk %}" class="btn btn-danger">删除</a>
+                    <a href="{% url 'users:user_list' %}" class="btn btn-secondary">返回列表</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

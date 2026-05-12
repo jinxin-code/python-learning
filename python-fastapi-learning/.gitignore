@@ -1,0 +1,39 @@
+# 虚拟环境
+venv/
+.env
+.venv/
+
+# Python 编译文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 开发工具
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+
+# 测试报告
+htmlcov/
+.pytest_cache/
+.coverage
+
+# 临时文件
+tmp/
+temp/
+
+# 敏感配置
+.env.local
+.env.production
+
+# FastAPI 特定
+.pytest_cache/

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}用户列表 - 用户管理系统{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- 搜索和筛选表单 -->
+        <div class="col-md-12 mb-4">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="search" class="form-control" 
+                           placeholder="搜索姓名或用户名..." 
+                           value="{{ search_term }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="filter" class="form-control">
+                        <option value="all" {% if filter_by == 'all' %}selected{% endif %}>全部</option>
+                        <option value="username" {% if filter_by == 'username' %}selected{% endif %}>按用户名排序</option>
+                        <option value="email" {% if filter_by == 'email' %}selected{% endif %}>按邮箱排序</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">搜索</button>
+                </div>
+                <div class="col-md-3 text-end">
+                    <a href="{% url 'users:user_add' %}" class="btn btn-success">添加用户</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- 用户列表 -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>用户列表</h2>
+                </div>
+                <div class="card-body">
+                    {% if users %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>用户名</th>
+                                    <th>邮箱</th>
+                                    <th>电话</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.name }}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.phone|default:"-" }}</td>
+                                        <td>
+                                            <a href="{% url 'users:user_detail' user.pk %}" class="btn btn-sm btn-info">详情</a>
+                                            <a href="{% url 'users:user_edit' user.pk %}" class="btn btn-sm btn-warning">编辑</a>
+                                            <a href="{% url 'users:user_delete' user.pk %}" class="btn btn-sm btn-danger">删除</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- 分页 -->
+                        {% if is_paginated %}
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_term %}&search={{ search_term }}{% endif %}{% if filter_by %}&filter={{ filter_by }}{% endif %}">
+                                                上一页
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% for num in page_obj.paginator.page_range %}
+                                        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                                            <a class="page-link" href="?page={{ num }}{% if search_term %}&search={{ search_term }}{% endif %}{% if filter_by %}&filter={{ filter_by }}{% endif %}">
+                                                {{ num }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_term %}&search={{ search_term }}{% endif %}{% if filter_by %}&filter={{ filter_by }}{% endif %}">
+                                                下一页
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            暂无用户数据，<a href="{% url 'users:user_add' %}">点击添加</a>或<a href="{% url 'users:user_sync' %}">同步数据</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

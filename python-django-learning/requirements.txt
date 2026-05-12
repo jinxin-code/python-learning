@@ -1,0 +1,12 @@
+# Django 框架
+django>=5.0.0
+
+# HTTP 请求库
+requests>=2.31.0
+
+# Django 扩展工具
+django-extensions>=3.2.0
+
+# 测试框架
+pytest>=7.0.0
+pytest-django>=4.5.0
