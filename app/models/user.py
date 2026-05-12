@@ -12,6 +12,8 @@
 """
 
 # 导入类型提示模块
+# Optional[X]: 表示可以是 X 类型或 None
+# Dict[str, Any]: 字典类型
 from typing import Optional, Dict, Any
 
 
@@ -22,14 +24,14 @@ class User:
     用于封装用户信息，提供数据转换方法。
     
     属性说明：
-    - id: 用户唯一标识
-    - name: 用户姓名
-    - username: 用户名
-    - email: 邮箱地址
-    - address: 地址信息（可选）
-    - phone: 电话号码（可选）
-    - website: 个人网站（可选）
-    - company: 公司信息（可选）
+    - id: 用户唯一标识（整数）
+    - name: 用户姓名（字符串）
+    - username: 用户名（字符串）
+    - email: 邮箱地址（字符串）
+    - address: 地址信息（可选，字典类型）
+    - phone: 电话号码（可选，字符串）
+    - website: 个人网站（可选，字符串）
+    - company: 公司信息（可选，字典类型）
     """
     
     def __init__(self, id: int, name: str, username: str, email: str, 
@@ -38,7 +40,7 @@ class User:
                  website: Optional[str] = None, 
                  company: Optional[Dict[str, Any]] = None):
         """
-        初始化用户对象
+        初始化用户对象（构造方法）
         
         参数:
             id (int): 用户 ID
@@ -50,10 +52,19 @@ class User:
             website (Optional[str]): 个人网站，默认 None
             company (Optional[Dict]): 公司信息字典，默认 None
         
-        Optional 类型说明：
-            Optional[X] 表示该参数可以是 X 类型或者 None
-            等同于 Union[X, None]
+        语法说明：
+            - __init__ 是类的初始化方法，创建实例时自动调用
+            - self 代表实例本身，用于访问实例属性
+            - 参数类型提示标注期望的类型
+            - 可选参数通过设置默认值实现（如 address=None）
+            - Optional[X] 表示参数可以是 X 类型或 None
+        
+        默认参数说明：
+            默认参数必须放在非默认参数之后
+            这里 address=None 表示如果不提供该参数，默认值为 None
         """
+        # 将参数赋值给实例属性
+        # self.id 是实例属性，每个对象独立拥有
         self.id = id
         self.name = name
         self.username = username
@@ -74,6 +85,12 @@ class User:
         返回:
             User: 创建的 User 对象
         
+        语法说明：
+            - @classmethod 装饰器表示这是一个类方法
+            - cls 参数代表类本身（而非实例）
+            - 返回类型提示 'User' 使用字符串是因为类尚未定义完成
+            - 这是一种前向引用（forward reference）
+        
         使用场景：
             当从 API 获取 JSON 数据后，需要将字典转换为对象
             示例:
@@ -83,6 +100,10 @@ class User:
         getattr vs get:
             data.get('key', default) 如果 key 不存在返回 default
             这里使用 get 方法可以处理 API 返回数据不完整的情况
+        
+        默认值处理：
+            对于必需字段（如 id, name），设置合理的默认值
+            对于可选字段，直接使用 get()，不存在时返回 None
         """
         return cls(
             id=data.get('id', 0),           # 如果 'id' 不存在，默认值为 0
@@ -101,6 +122,10 @@ class User:
         
         返回:
             Dict[str, Any]: 包含用户信息的字典
+        
+        语法说明：
+            - 这是一个实例方法，需要通过实例调用
+            - 返回一个新字典，包含所有实例属性
         
         使用场景：
             当需要将用户对象发送到 API 或保存到数据库时
@@ -127,6 +152,13 @@ class User:
         参数:
             data (Dict[str, Any]): 包含更新信息的字典
         
+        返回:
+            None: 无返回值
+        
+        语法说明：
+            - 返回类型提示为 None（显式标注）
+            - 只更新字典中存在的键
+        
         使用场景：
             当用户提交编辑表单后，只更新提供的字段
             示例:
@@ -134,6 +166,7 @@ class User:
         
         注意事项：
             只更新字典中存在的键，不会删除未提及的字段
+            使用 if 'key' in data 检查键是否存在
         """
         if 'name' in data:
             self.name = data['name']
