@@ -84,8 +84,6 @@ python manage.py runserver
 
 ---
 
-## English Version
-
 # Python Learning
 
 A repository containing three Python web framework learning projects for comparing Flask, FastAPI, and Django.
