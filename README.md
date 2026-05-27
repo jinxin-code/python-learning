@@ -70,6 +70,42 @@ python manage.py runserver
 
 ---
 
+### 4. my-python-toolkit/optical-character-recognition
+OCR PDF 文字识别工具
+
+**功能特点：**
+- 将扫描版PDF转换为可搜索文字版PDF
+- 支持中英文混合识别
+- 两种输出模式：保留原图背景 / 纯文字输出
+- 自动环境检查，提示缺失依赖及安装命令
+
+**技术栈：**
+- Poppler（PDF渲染引擎）
+- Tesseract OCR引擎
+- pdf2image、pytesseract、Pillow、reportlab
+
+**启动方式：**
+```bash
+cd my-python-toolkit/optical-character-recognition
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**使用方法：**
+```bash
+# 列出可用文件
+python3 pdf_to_text_pdf.py -l
+
+# 模式A：保留原图版（添加透明文字层）
+python3 pdf_to_text_pdf.py input.pdf
+
+# 模式B：纯文字版（无图片背景）
+python3 pdf_to_text_only.py input.pdf
+```
+
+---
+
 ## 技术对比
 
 | 特性 | Flask | FastAPI | Django |
@@ -156,6 +192,42 @@ python manage.py runserver
 
 ---
 
+### 4. my-python-toolkit/optical-character-recognition
+OCR PDF Text Recognition Tool
+
+**Features:**
+- Convert scanned PDFs to searchable text PDFs
+- Support mixed Chinese-English recognition
+- Two output modes: preserve original image / text-only output
+- Auto environment check with installation instructions
+
+**Tech Stack:**
+- Poppler (PDF rendering engine)
+- Tesseract OCR engine
+- pdf2image, pytesseract, Pillow, reportlab
+
+**Quick Start:**
+```bash
+cd my-python-toolkit/optical-character-recognition
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Usage:**
+```bash
+# List available files
+python3 pdf_to_text_pdf.py -l
+
+# Mode A: Preserve original image (add transparent text layer)
+python3 pdf_to_text_pdf.py input.pdf
+
+# Mode B: Text-only (no image background)
+python3 pdf_to_text_only.py input.pdf
+```
+
+---
+
 ## Technology Comparison
 
 | Feature | Flask | FastAPI | Django |
@@ -194,6 +266,12 @@ python-learning/
 │   ├── users/                 # User app
 │   ├── templates/             # Template files
 │   └── ...
+│
+├── my-python-toolkit/         # Python toolkits
+│   └── optical-character-recognition/  # OCR PDF tool
+│       ├── source_PDF/        # Input PDF files
+│       ├── output_PDF/        # Output PDF files
+│       └── ...
 │
 └── README.md                  # This file
 ```
