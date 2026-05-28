@@ -76,6 +76,7 @@ OCR PDF 文字识别工具
 **功能特点：**
 - 将扫描版PDF转换为可搜索文字版PDF
 - 支持中英文混合识别
+- 自动检测系统中文字体（苹方、黑体、宋体等），确保中文正确显示
 - 两种输出模式：保留原图背景 / 纯文字输出
 - 自动环境检查，提示缺失依赖及安装命令
 
@@ -198,6 +199,7 @@ OCR PDF Text Recognition Tool
 **Features:**
 - Convert scanned PDFs to searchable text PDFs
 - Support mixed Chinese-English recognition
+- Auto-detect system Chinese fonts (PingFang, STHeiti, Songti, etc.) for proper Chinese display
 - Two output modes: preserve original image / text-only output
 - Auto environment check with installation instructions
 
