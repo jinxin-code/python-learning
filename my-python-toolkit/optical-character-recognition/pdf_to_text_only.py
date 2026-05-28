@@ -16,6 +16,8 @@ from PIL import Image
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 
 def check_environment():
@@ -93,9 +95,36 @@ def extract_text_from_pdf(pdf_path):
     return all_text
 
 
+def get_chinese_font():
+    """获取系统中可用的中文字体"""
+    font_paths = [
+        '/System/Library/Fonts/PingFang.ttc',
+        '/System/Library/Fonts/STHeiti Light.ttc',
+        '/System/Library/Fonts/Songti.ttc',
+        '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
+        '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
+    ]
+    
+    for font_path in font_paths:
+        if os.path.exists(font_path):
+            # 获取字体名称
+            font_name = os.path.splitext(os.path.basename(font_path))[0]
+            try:
+                pdfmetrics.registerFont(TTFont(font_name, font_path))
+                return font_name
+            except:
+                continue
+    
+    # 如果没有找到中文字体，返回默认字体（可能无法正确显示中文）
+    return "Helvetica"
+
 def create_text_only_pdf(text_pages, output_path):
     """创建纯文字PDF"""
     print(f"\n正在生成纯文字PDF...")
+    
+    # 获取中文字体
+    chinese_font = get_chinese_font()
+    print(f"  使用字体: {chinese_font}")
     
     c = canvas.Canvas(output_path, pagesize=letter)
     page_width, page_height = letter
@@ -118,7 +147,7 @@ def create_text_only_pdf(text_pages, output_path):
         while current_line < len(lines):
             # 设置起始位置
             y = page_height - margin
-            c.setFont("Helvetica", font_size)
+            c.setFont(chinese_font, font_size)
             
             # 逐行写入
             for i in range(min(max_lines_per_page, len(lines) - current_line)):

@@ -117,9 +117,34 @@ def ocr_image(image):
     return text, data
 
 
+def get_chinese_font():
+    """获取系统中可用的中文字体"""
+    font_paths = [
+        '/System/Library/Fonts/PingFang.ttc',
+        '/System/Library/Fonts/STHeiti Light.ttc',
+        '/System/Library/Fonts/Songti.ttc',
+        '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
+        '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
+    ]
+    
+    for font_path in font_paths:
+        if os.path.exists(font_path):
+            font_name = os.path.splitext(os.path.basename(font_path))[0]
+            try:
+                pdfmetrics.registerFont(TTFont(font_name, font_path))
+                return font_name
+            except:
+                continue
+    
+    return "Helvetica"
+
 def create_text_pdf(images, output_path):
     """创建包含可搜索文字的PDF"""
     print(f"正在创建文字版PDF: {output_path}")
+    
+    # 获取中文字体
+    chinese_font = get_chinese_font()
+    print(f"  使用字体: {chinese_font}")
     
     c = canvas.Canvas(output_path, pagesize=letter)
     
@@ -155,7 +180,7 @@ def create_text_pdf(images, output_path):
                     height = data['height'][j] * scale
                     
                     if height > 0 and left >= 0 and top >= 0:
-                        c.setFont("Helvetica", height * 0.8)
+                        c.setFont(chinese_font, height * 0.8)
                         c.drawString(left, top, text)
             
             c.restoreState()
